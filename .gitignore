@@ -1,0 +1,28 @@
+# local env
+.env
+.env.*
+**/.env
+
+# databases
+db/*.db
+db/*.sqlite
+db/*.sqlite3
+
+# dumps
+*.sql
+*.dump
+
+# docker volumes
+**/postgres-data
+**/pgdata
+
+# node
+frontend/node_modules
+frontend/.next
+
+# python
+backend/__pycache__
+backend/*.pyc
+
+# macOS
+.DS_Store

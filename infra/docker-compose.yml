@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: process_portal
+      POSTGRES_USER: process_user
+      POSTGRES_PASSWORD: process_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ../backend
+    environment:
+      DATABASE_URL: postgresql+psycopg://process_user:process_pass@db:5432/process_portal
+      STORAGE_ROOT: /data
+    ports:
+      - "8000:8000"
+    volumes:
+      - backend_data:/data
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ../frontend
+    environment:
+      NEXT_PUBLIC_API_BASE: http://localhost:8000
+      INTERNAL_API_BASE: http://backend:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
+  backend_data:
