@@ -26,3 +26,6 @@ backend/*.pyc
 
 # macOS
 .DS_Store
+
+# never commit real process seeds
+backend/seed/*.json
